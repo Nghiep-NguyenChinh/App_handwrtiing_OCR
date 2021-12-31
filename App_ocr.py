@@ -10,7 +10,7 @@ import base64
 from io import BytesIO
 import time
 
-URL = "http://2703-34-90-220-141.ngrok.io"
+URL = "http://ffe0-34-90-220-141.ngrok.io"
 
 st.markdown("<h1 style='text-align: center;'>HAND WRITTING OCR </h1>", unsafe_allow_html=True)
 
