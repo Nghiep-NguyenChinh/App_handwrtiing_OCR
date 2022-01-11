@@ -10,7 +10,7 @@ import base64
 from io import BytesIO
 import time
 
-URL = "http://ffe0-34-90-220-141.ngrok.io"
+URL = "http://63af-35-233-162-209.ngrok.io"
 
 st.markdown("<h1 style='text-align: center;'>HAND WRITTING OCR </h1>", unsafe_allow_html=True)
 
@@ -60,11 +60,16 @@ add_selectbox = st.sidebar.markdown(
 def convertImgToBase64(img_path):
     with open(img_path, 'rb') as f:
         data = base64.b64encode(f.read())
-    # print(",<<<<<<<<<<", data)
     return data
         
 
+# input image from uploadfile
+def convertImgToBase64_ascii(image):
+    return base64.encodebytes(image.getvalue()).decode('ascii')
 
+def convertImgToBase64_image(image_file):
+    data = base64.encodebytes(image_file.getvalue())
+    return data
 
 ################################################################
 # Text Input
@@ -84,16 +89,18 @@ def convertImgToBase64(img_path):
 
 # Text area
 message = st.text_area("Create a handwritten image from a text", "Type here")
+# add style
+image_style  = st.file_uploader("Upload image OCR___",type=['jpg','png','JPEG'])
+try:
+    image_style_ = Image.open(image_style)
+    st.image(image_style_, "Ảnh tải lên")
+except: pass
 if st.button("Send"):
     result = message
-    # st.success(result)
-    # st.info('This is a purely informational message')y
-    # my_bar = st.progress(0)
-    # for percent_complete in range(1000):
-    #      time.sleep(0.1)
-    #      my_bar.progress(percent_complete + 1)
-
-    r = post(url=f"{URL}/", data={ 'data':f"{result}"})
+    if  image_style is not None :
+        r = post(url=f"{URL}/", data={ 'data':f"{result}", 'imgsource' : convertImgToBase64_ascii(image_style)})
+        # r = post(url=f"{URL}/", data={ 'data':f"{result}", 'imgsource' : base64.encodebytes(image_style.getvalue()).decode('ascii')})
+    else: r = post(url=f"{URL}/", data={ 'data':f"{result}"})
     a = json.loads(r.text)
     imgdata = base64.b64decode(a["image"])
     filename = BytesIO(imgdata)
@@ -101,6 +108,11 @@ if st.button("Send"):
     # st.image(img, width=400, caption="Image")
     st.image(img, caption="Image")
     st.write("\n  ")
+
+
+
+
+
 
  # upload file image for OCR
 st.write("\n ")
@@ -121,16 +133,19 @@ search_image_btn = st.button("Send image")
 if search_image_btn:
 
     if option =='Typewriter':
-        r = post(url=f'{URL}/ocr_type/', data={'data':convertImgToBase64(image_file.name)})
+        # r = post(url=f'{URL}/ocr_type/', data={'data':convertImgToBase64(image_file.name)})
+        r = post(url=f'{URL}/ocr_type/', data={'data':convertImgToBase64_image(image_file)})
         result_image = json.loads(r.text)
         st.success(result_image['text'])
 
     elif option == 'Handwriting':
-        r = post(url=f'{URL}/ocr_hw/', data={'data':convertImgToBase64(image_file.name)})
+        r = post(url=f'{URL}/ocr_hw/', data={'data':convertImgToBase64_image(image_file)})
         result_image = json.loads(r.text)
         st.success(result_image['text'])
 
     # elif image_file== None: st.error("Something is wrong!!!!!")
+
+
 
 
 
