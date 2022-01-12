@@ -28,7 +28,7 @@ URL = str(download_url())
 
 print(URL)
 
-st.markdown("<h1 style='text-align: center;'>HAND WRITTING OCR </h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>HAND WRITING OCR </h1>", unsafe_allow_html=True)
 
 
 def display_app_header(main_txt, sub_txt, is_sidebar=False):
