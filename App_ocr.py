@@ -9,8 +9,24 @@ import numpy as np
 import base64
 from io import BytesIO
 import time
+import gdown
 
-URL = "http://63af-35-233-162-209.ngrok.io"
+def download_url():
+    
+    gdown.download(id="1I4UoTQY_ypVlg1zRfihybaIwCdKm-Xvu", output="url.txt")
+    with open("url.txt", "r") as bf:
+        
+        URL = bf.read()
+        return URL.strip('/')
+
+URL = str(download_url())
+
+
+
+# URL = "http://70b9-35-188-186-113.ngrok.io"
+
+
+print(URL)
 
 st.markdown("<h1 style='text-align: center;'>HAND WRITTING OCR </h1>", unsafe_allow_html=True)
 
@@ -72,25 +88,12 @@ def convertImgToBase64_image(image_file):
     return data
 
 ################################################################
-# Text Input
 
-# name = st.text_input("Create a handwritten image from a text", "Type here")
-# if st.button("Send "):
-#     result = name
-#     st.success(result)
-#     r = post(url=f"{URL}/", data={ 'data':f"{result}"})
-#     a = json.loads(r.text)
-#     imgdata = base64.b64decode(a["image"])
-#     filename = BytesIO(imgdata)
-#     img = Image.open(filename)
-#     # st.image(img, width=400, caption="Image")
-#     st.image(img, caption="Image")
-#     st.write("\n ok ")
 
 # Text area
 message = st.text_area("Create a handwritten image from a text", "Type here")
 # add style
-image_style  = st.file_uploader("Upload image OCR___",type=['jpg','png','JPEG'])
+image_style  = st.file_uploader("Upload image for style ",type=['jpg','png','JPEG'])
 try:
     image_style_ = Image.open(image_style)
     st.image(image_style_, "Ảnh tải lên")
@@ -144,8 +147,4 @@ if search_image_btn:
         st.success(result_image['text'])
 
     # elif image_file== None: st.error("Something is wrong!!!!!")
-
-
-
-
 
