@@ -28,7 +28,7 @@ URL = str(download_url())
 
 print(URL)
 
-st.markdown("<h1 style='text-align: center;'>HAND WRITING OCR </h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>HANDWRITING GENERATION </h1>", unsafe_allow_html=True)  
 
 
 def display_app_header(main_txt, sub_txt, is_sidebar=False):
@@ -123,7 +123,7 @@ if st.button("Send"):
  # upload file image for OCR
 st.write("\n ")
 st.write("-------------------------------------------------------")
-st.markdown("<h3 style='text-align: center;'> OCR </h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'> OCR </h1>", unsafe_allow_html=True)
 image_file = st.file_uploader("Upload image OCR",type=['jpg','png','JPEG'])
 
 try:
