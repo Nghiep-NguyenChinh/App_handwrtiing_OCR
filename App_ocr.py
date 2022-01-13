@@ -45,7 +45,7 @@ def display_app_header(main_txt, sub_txt, is_sidebar=False):
     <p style = "color:#00ff6f; text_align:center;"> {sub_txt} </p>
     </div>
     """
-    st.balloons()
+    
     if is_sidebar:
 
         st.sidebar.markdown(html_temp, unsafe_allow_html=True)
@@ -99,6 +99,7 @@ try:
     st.image(image_style_, "Ảnh tải lên")
 except: pass
 if st.button("Send"):
+    st.balloons()
     result = message
     if  image_style is not None :
         r = post(url=f"{URL}/", data={ 'data':f"{result}", 'imgsource' : convertImgToBase64_ascii(image_style)})
@@ -117,8 +118,12 @@ if st.button("Send"):
 
 
 
+
+
  # upload file image for OCR
 st.write("\n ")
+st.write("-------------------------------------------------------")
+st.markdown("<h3 style='text-align: center;'> OCR </h1>", unsafe_allow_html=True)
 image_file = st.file_uploader("Upload image OCR",type=['jpg','png','JPEG'])
 
 try:
@@ -134,7 +139,7 @@ st.write('You selected:', option)
 
 search_image_btn = st.button("Send image")
 if search_image_btn:
-
+    st.balloons()
     if option =='Typewriter':
         # r = post(url=f'{URL}/ocr_type/', data={'data':convertImgToBase64(image_file.name)})
         r = post(url=f'{URL}/ocr_type/', data={'data':convertImgToBase64_image(image_file)})
