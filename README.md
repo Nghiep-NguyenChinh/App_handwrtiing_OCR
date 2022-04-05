@@ -14,3 +14,12 @@ Giao diện của hệ thống:
 2. Phần OCR cho hệ thống
 
 
+#  Deploy Vietnamese handwriting generator
+
+Hệ thóng được giao tiếp truyền nhận theo cơ chế server client:
+
++ Server colab được được xây đựng trên tunnel ngrok và flask api để truyền nhận dữ liệu. Khởi động server bằng cách chạy file [api_diffusion.ipynb]  (teammates_aNghia_OCR_backup/api/diffusion/api_diffusion.ipynb) 
+
++ client:Sử dụng Stremlit Library để thiết kế 1 giao diện đơn giản [https://share.streamlit.io/nghiep-nguyenchinh/app_handwrtiing_ocr/main/App_ocr.py]
+
+Link github deploy: https://github.com/Nghiep-NguyenChinh/App_handwrtiing_OCR
